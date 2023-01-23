@@ -27,6 +27,16 @@ class Cart extends StatelessWidget {
                       if (asyncSnapshot.hasData) {
                         return ListTile(
                           title: Text(asyncSnapshot.data['title']),
+                          leading: Image.network(asyncSnapshot.data['image'],
+                              height: 40),
+                          subtitle:
+                              Text("Quantity - ${products[index]['quantity']}"),
+                          trailing: IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                              )),
                         );
                       }
                       return const LinearProgressIndicator();
@@ -38,6 +48,17 @@ class Cart extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         },
+      ),
+      bottomNavigationBar: Container(
+        height: 60,
+        width: double.infinity,
+        color: Colors.green,
+        child: const Center(
+          child: Text(
+            "Order Now",
+            style: TextStyle(color: Colors.white, fontSize: 30),
+          ),
+        ),
       ),
     );
   }
