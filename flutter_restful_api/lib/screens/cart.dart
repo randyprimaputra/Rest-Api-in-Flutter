@@ -32,7 +32,13 @@ class Cart extends StatelessWidget {
                           subtitle:
                               Text("Quantity - ${products[index]['quantity']}"),
                           trailing: IconButton(
-                              onPressed: () {},
+                              onPressed: () async {
+                                await ApiServices().deleteCart('1');
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text(
+                                            "Item Deleted Successfully !")));
+                              },
                               icon: const Icon(
                                 Icons.delete,
                                 color: Colors.red,
