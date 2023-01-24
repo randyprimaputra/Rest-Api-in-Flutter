@@ -85,7 +85,11 @@ class ProductDetail extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (() {}),
+        onPressed: (() async {
+          await ApiServices().updateCart(1, id);
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text("Product added to Cart")));
+        }),
         backgroundColor: Colors.green,
         child: const Icon(Icons.add_shopping_cart_outlined),
       ),
