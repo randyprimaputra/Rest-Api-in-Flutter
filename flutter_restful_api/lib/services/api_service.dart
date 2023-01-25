@@ -117,4 +117,54 @@ class ApiServices {
 
     return json.decode(response.body);
   }
+
+  Future userAuthentication(String username, String password) async {
+    final authUrl = Uri.parse("https://api.somehere.io");
+    final response = await http.post(authUrl, body: {
+      'username': username,
+      'password': password,
+    });
+
+    if (kDebugMode) {
+      print(response.statusCode);
+      print(response.body);
+    }
+
+    return json.decode(response.body);
+  }
+
+  Future userAuthorization(String username, String password) async {
+    final authUrl = Uri.parse("https://api.somehere.io");
+    String basicAuth =
+        "Basic " + base64Encode(utf8.encode("$username:$password"));
+    final response = await http.post(authUrl, headers: {
+      "Content-Type": "application/json",
+      "authorization": basicAuth,
+    });
+
+    if (kDebugMode) {
+      print(response.statusCode);
+      print(response.body);
+    }
+
+    return json.decode(response.body);
+  }
+
+  Future userBearerAuthorization(String username, String password) async {
+    final authUrl = Uri.parse("https://api.somehere.io");
+    String basicAuth =
+        "Basic " + base64Encode(utf8.encode("$username:$password"));
+    final accessToken = "some token value";
+    final response = await http.post(authUrl, headers: {
+      "Content-Type": "application/json",
+      "authorization": "Bearer $accessToken",
+    });
+
+    if (kDebugMode) {
+      print(response.statusCode);
+      print(response.body);
+    }
+
+    return json.decode(response.body);
+  }
 }
